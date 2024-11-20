@@ -9,15 +9,16 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class NotificationService {
 
-    private static final String NOTIFICATION_SERVICE_URL = "http://NOTIFICATIONS/api/notifications";
+    private static final String NOTIFICATION_SERVICE_URL = "lb://NOTIFICATIONS/api/notifications";
     private final RestTemplate restTemplate;
     private RabbitMQJsonProducer jsonProducer;
 
     @Autowired
-    public NotificationService(RestTemplate restTemplate,RabbitMQJsonProducer jsonProducer) {
+    public NotificationService(RestTemplate restTemplate, RabbitMQJsonProducer jsonProducer) {
         this.restTemplate = restTemplate;
         this.jsonProducer = jsonProducer;
     }
+
     public void notifyAll(NotificationDTO notification) {
         jsonProducer.sendJsonNotification(notification);
     }
